@@ -2,7 +2,7 @@
 
 angular.module('issueTrackingSystem', [
     'ngRoute',
-    'issueTrackingSystem.home'
+    'issueTrackingSystem.home.home'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/'});

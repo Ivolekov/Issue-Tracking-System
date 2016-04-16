@@ -21,19 +21,19 @@ angular.module('issueTrackingSystem.users.authentication', [])
             }
 
             function loginUser(user) {
-                var deferred = $q.defer();
-                var loginData = 'Username=' + user.email + '&Password=' + user.password + '&grant_type=password';
-                $http.post(BASE_URL + 'api/token',$.param(user), {
-                        headers: {
-                            'Content-type': 'application/x-www-form-urlencoded'
-                        }
-                    })
-                    .then(function (response) {
-                        sessionStorage['access_token'] = 'Bearer' + response.data.access_token;
-                        deferred.resolve(response)
-                    }, function (error) {
-                        deferred.reject(error)
-                    });
+                var deferred = $q.defer(),
+                    loginUserData = "grant_type=password&username=" + user.username + "&password=" + user.password;
+
+                $http.post(BASE_URL + 'api/Token', loginUserData, {
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                }).then(function (response) {
+                    sessionStorage['access_token'] = 'Bearer' + response.data.access_token;
+                    deferred.resolve(response);
+                    console.log(response.data)
+                }, function (error) {
+                    deferred.reject(error);
+                    console.log(error)
+                });
 
                 return deferred.promise
             }
