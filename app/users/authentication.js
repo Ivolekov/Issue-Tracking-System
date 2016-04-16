@@ -21,11 +21,10 @@ angular.module('issueTrackingSystem.users.authentication', [])
             }
 
             function loginUser(user) {
-<<<<<<< HEAD
                 var deferred = $q.defer(),
                     loginUserData = "grant_type=password&username=" + user.username + "&password=" + user.password;
 
-                $http.post(BASE_URL + 'api/Token', loginUserData, {
+                $http.post(BASE_URL + 'api/token', loginUserData, {
                     headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 }).then(function (response) {
                     sessionStorage['access_token'] = 'Bearer' + response.data.access_token;
@@ -35,32 +34,33 @@ angular.module('issueTrackingSystem.users.authentication', [])
                     deferred.reject(error);
                     console.log(error)
                 });
-=======
-                var deferred = $q.defer();
-                var loginData = 'Username=' + user.email + '&Password=' + user.password + '&grant_type=password';
-                $http.post(BASE_URL + 'api/token',$.param(user), {
-                        headers: {
-                            'Content-type': 'application/x-www-form-urlencoded'
-                        }
-                    })
-                    .then(function (response) {
-                        sessionStorage['access_token'] = 'Bearer' + response.data.access_token;
-                        deferred.resolve(response)
-                    }, function (error) {
-                        deferred.reject(error)
-                    });
->>>>>>> 2779ec8487ea04bd7a7645cd602ae50975ecc72a
 
                 return deferred.promise
             }
 
-            function logout() {
+            function logoutUser() {
+                var deferred = $q.defer();
 
+                $http.post(BASE_URL + "account/logout", null)
+                    .then(function (response) {
+                        deferred.resolve(response);
+                        console.log(response)
+                    }, function (error) {
+                        deferred.reject(error);
+                        console.log("ERROR--->>>>" + error.data)
+                    })
+            }
+
+            function getCurrentUser() {
+                var user = sessionStorage['currentUser'];
+                if (user) {
+                    return JSON.parse(user)
+                }
             }
 
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
-                logoutUser: logout
+                logoutUser: logoutUser
             }
         }]);

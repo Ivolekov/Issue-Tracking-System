@@ -41,18 +41,11 @@ body{
   content: "";
   padding: 0;
 }
-<<<<<<< HEAD
 #loginBtn{
   background: none;
   color:#0082C2;
   font-weight: 500;
 }
-=======
-
-
-
-
->>>>>>> 2779ec8487ea04bd7a7645cd602ae50975ecc72a
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");/*!
  * bootswatch v3.3.6

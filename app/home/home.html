@@ -8,14 +8,10 @@
             <label for="password">Password</label>
             <input type="password" required="required" ng-model="loginUser.password" id="password" class="form-control" />
             <br />
-<<<<<<< HEAD
             <button class="btn btn-primary" ng-disabled="loginUserForm.$invalid" ng-click="login(loginUser)" id="loginBtn">Login</button>
-=======
-            <button class="btn btn-primary" ng-disabled="loginUserForm.$invalid" ng-click="login(loginUser)">Login</button>
->>>>>>> 2779ec8487ea04bd7a7645cd602ae50975ecc72a
         </form>
     </div>
-
+<button ng-click="logout()" ng-controller="HomeCtrl">logout</button>
     <div class="col-md-4 col-md-offset-2 border">
         <form name="registerUserForm">
             <label for="reg-email">E-mail</label>
