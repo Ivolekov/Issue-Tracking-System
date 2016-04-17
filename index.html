@@ -5,6 +5,7 @@
     <title>Issue Tracking System</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app/bower_components/Angular-Notys/angular-notys.css/"/>
     <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
@@ -12,6 +13,7 @@
     <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body cz-shortcut-listen="true">
+<div noty-container></div>
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -23,11 +25,11 @@
             </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#/home/">Home</a>
-                </li>
-            </ul>
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li>-->
+                    <!--<a href="#/home/">Home</a>-->
+                <!--</li>-->
+            <!--</ul>-->
         </div>
     </div>
 </div>
@@ -41,9 +43,13 @@
 <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="app/bower_components/angular/angular.js"></script>
 <script src="app/bower_components/angular-route/angular-route.js"></script>
-<script src="app/bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="app/bower_components/ui.bootstrap/ui-bootstrap-tpls-1.3.1.js"></script>
+<script src="app/bower_components/Angular-Notys/angular-notys.js"></script>
+<script src="app/bower_components/angular-animate/angular-animate.js"></script>
+<script src="app/components/noty-service.js"></script>
 <script src="app/app.js"></script>
 <script src="app/users/authentication.js"></script>
 <script src="app/home/home-controller.js"></script>
+<script src="app/dashboard/dashboard-controller.js"></script>
 </body>
 </html>

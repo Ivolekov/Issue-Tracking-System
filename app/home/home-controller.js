@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('issueTrackingSystem.home.home', [
         'issueTrackingSystem.users.authentication'
     ])
@@ -11,15 +12,18 @@ angular.module('issueTrackingSystem.home.home', [
     .controller('HomeCtrl', [
         '$scope',
         'authentication',
-        '$route',
-        function ($scope, authentication, $route) {
+        'notificationService',
+        'noty',
+        function ($scope, authentication, notificationService, noty) {
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (response) {
                         sessionStorage.setItem('currentUser', JSON.stringify(response.data));
                         console.log('JSON-->>>>' + JSON.stringify(response));
+                        noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'))
                     }, function (error) {
-                        console.log(error)
+                        console.log(error);
+                        noty.showNoty(notificationService.notifyErrorMsg('The Username or Password is Incorrect. Please Try Again'))
                     });
 
             };
@@ -27,15 +31,18 @@ angular.module('issueTrackingSystem.home.home', [
             $scope.register = function (user) {
                 authentication.registerUser(user)
                     .then(function (registeredUser) {
-                        console.log(registeredUser)
+                        console.log(registeredUser);
+                        noty.showNoty(notificationService.notifySuccesMsg('Registration Success. Welcome'))
                     }, function (error) {
-                        console.log(error)
+                        console.log(error);
+                        noty.showNoty(notificationService.notifyErrorMsg('Registration Failed. Please try again'))
                     });
             };
 
             $scope.logout = function (user) {
-                authentication.logoutUser()
+                authentication.logoutUser();
                 console.log('Logout successful');
+                noty.showNoty(notificationService.notifyLogoutMsg('Successfully Logged Out'))
 
             };
 

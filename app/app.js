@@ -2,7 +2,11 @@
 
 angular.module('issueTrackingSystem', [
     'ngRoute',
-    'issueTrackingSystem.home.home'
+    'angular-noty',
+    'ngAnimate',
+    'issueTrackingSystem.home.home',
+    'issueTrackingSystem.dashboard.dashboard',
+    'issueTrackingSystem.components.noty-service'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/'});

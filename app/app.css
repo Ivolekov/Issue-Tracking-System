@@ -9,7 +9,7 @@ body{
   padding: 15px;
 }
 
-.margin-bottom-100 {
+.margin-bottom-100, .dashboardRow {
   margin-bottom: 100px;
 }
 
@@ -42,6 +42,7 @@ body{
   padding: 0;
 }
 #loginBtn{
+  width: 80px;
   background: none;
   color:#0082C2;
   font-weight: 500;
