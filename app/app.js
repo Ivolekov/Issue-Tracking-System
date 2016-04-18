@@ -4,6 +4,7 @@ angular.module('issueTrackingSystem', [
         'ngRoute',
         'ngCookies',
         'angular-noty',
+        'angular-loading-bar',
         'ngAnimate',
         'issueTrackingSystem.home.home',
         'issueTrackingSystem.dashboard.dashboard',
