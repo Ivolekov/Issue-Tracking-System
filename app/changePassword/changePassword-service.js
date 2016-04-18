@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('issueTrackingSystem.changePassword.changePassword-service', [])
-    .factory('changePassword-service', [
+    .factory('changePasswordService', [
         '$http',
         '$q',
         'BASE_URL',

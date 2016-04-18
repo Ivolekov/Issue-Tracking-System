@@ -8,7 +8,8 @@ angular.module('issueTrackingSystem', [
         'ngAnimate',
         'issueTrackingSystem.home.home',
         'issueTrackingSystem.dashboard.dashboard',
-        'issueTrackingSystem.components.noty-service'
+        'issueTrackingSystem.components.noty-service',
+        'issueTrackingSystem.changePassword.changePassword'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/'});

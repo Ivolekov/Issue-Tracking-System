@@ -2,9 +2,12 @@
 
 angular.module('issueTrackingSystem.changePassword.changePassword', [])
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/', {
-            templateUrl: 'app/changePassword.changePassword.html',
-            controller: 'ChangePasswordCtrl'
+        $routeProvider.when('/password', {
+            templateUrl: 'app/changePassword/changePassword.html',
+            controller: 'ChangePasswordCtrl',
+            access: {
+                requiresAuthentication: true
+            }
         })
     }])
     .controller('ChangePasswordCtrl', [
