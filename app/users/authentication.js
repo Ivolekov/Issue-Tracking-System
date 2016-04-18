@@ -59,28 +59,18 @@ angular.module('issueTrackingSystem.users.authentication', [])
             //        return JSON.parse(user)
             //    }
             //}
-            function getCurrentUser(user) {
+            function getCurrentUser() {
+                var deffered = $q.defer();
 
-                var deferred = $q.defer();
-
-                $http.get(BASE_URL + 'users/me')
-                    .then(function (response) {
-                        deferred.resolve(response);
+                $http.get(BASE_URL + 'Users/me')
+                    .then(function (result) {
+                        deffered.resolve(result);
                     }, function (error) {
-                        deferred.reject(error)
+                        deffered.reject(error);
                     });
-                var accessToken = $cookies.get('access_token');
 
-                if ($cookies.get('access_token')) {
-                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
-                } else {
-                    $rootScope.isAuthenticated = false;
-                    return false;
-                }
-
-                return deferred.promise;
+                return deffered.promise;
             }
-
             function isAuthenticated() {
                 return !!$cookies.get('access_token');
             }
@@ -114,6 +104,12 @@ angular.module('issueTrackingSystem.users.authentication', [])
                 return deffered.promise;
             }
 
+            function isAdmin(user) {
+                //var isAdmin = sessionStorage['isAdmin'] === 'true';
+                var isAdmin = $cookies.put('isAdmin', user.true);
+                return isAdmin;
+            }
+
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
@@ -122,6 +118,7 @@ angular.module('issueTrackingSystem.users.authentication', [])
                 setCredentials: setCredentials,
                 getCurrentUser: getCurrentUser,
                 clearCredentials: clearCredentials,
-                changePassword: changePassword
+                changePassword: changePassword,
+                isAdmin: isAdmin
             }
         }]);

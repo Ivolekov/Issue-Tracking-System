@@ -16,7 +16,8 @@ angular.module('issueTrackingSystem.home.home', [
         'noty',
         '$route',
         '$rootScope',
-        function ($scope, authentication, notificationService, noty, $route, $rootScope) {
+        '$cookies',
+        function ($scope, authentication, notificationService, noty, $route, $rootScope, $cookies) {
             $rootScope.isAuthenticated = authentication.isAuthenticated();
 
             $scope.login = function (user) {
@@ -25,12 +26,18 @@ angular.module('issueTrackingSystem.home.home', [
                         //sessionStorage.setItem('currentUser', JSON.stringify(response.data));
                         //console.log('JSON-->>>>' + JSON.stringify(response));
                         authentication.setCredentials(response.data);
-                        authentication.getCurrentUser(function (succes) {
-                            $rootScope.isAuthenticated = true;
-                            $rootScope.userData = succes.data;
-                        });
-                        noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
-                        $route.reload()
+                        //authentication.getCurrentUser(function (succes) {
+                        //    $rootScope.isAuthenticated = true;
+                        //    $rootScope.userData = succes.data;
+                        //});
+                        authentication.getCurrentUser()
+                            .then(function (userInfo) {
+                                //sessionStorage['isAdmin'] = userInfo.data.isAdmin;
+                                $cookies.put('isAdmin', userInfo.data.isAdmin);
+                                noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
+                                $route.reload()
+                            })
+
                     }, function (error) {
                         //console.log(error);
                         noty.showNoty(notificationService.notifyErrorMsg('The Username or Password is Incorrect. Please Try Again'))
