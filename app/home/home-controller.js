@@ -45,28 +45,44 @@ angular.module('issueTrackingSystem.home.home', [
 
             };
 
+            //$scope.register = function (user) {
+            //    authentication.registerUser(user)
+            //        .then(function (registeredUser) {
+            //            //console.log(registeredUser);
+            //            authentication.loginUser(user)
+            //                .then(function (response) {
+            //
+            //                    authentication.setCredentials(response.data);
+            //                    authentication.getCurrentUser(function (succes) {
+            //                        $rootScope.isAuthenticated = true;
+            //                        $rootScope.userData = succes.data;
+            //                    });
+            //                    noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
+            //                    $route.reload()
+            //                }, function (error) {
+            //                    console.log(error);
+            //                    noty.showNoty(notificationService.notifyErrorMsg('The Username or Password is Incorrect. Please Try Again'))
+            //                });
+            //
+            //            noty.showNoty(notificationService.notifySuccesMsg('Registration Success. Welcome'))
+            //        }, function (error) {
+            //            //console.log(error);
+            //            noty.showNoty(notificationService.notifyErrorMsg('Registration Failed. Please try again'))
+            //        });
+            //};
+
+
             $scope.register = function (user) {
                 authentication.registerUser(user)
-                    .then(function (registeredUser) {
-                        //console.log(registeredUser);
-                        authentication.loginUser(user)
-                            .then(function (response) {
-
-                                authentication.setCredentials(response.data);
-                                authentication.getCurrentUser(function (succes) {
-                                    $rootScope.isAuthenticated = true;
-                                    $rootScope.userData = succes.data;
-                                });
-                                noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
-                                $route.reload()
-                            }, function (error) {
-                                console.log(error);
-                                noty.showNoty(notificationService.notifyErrorMsg('The Username or Password is Incorrect. Please Try Again'))
-                            });
-
-                        noty.showNoty(notificationService.notifySuccesMsg('Registration Success. Welcome'))
-                    }, function (error) {
-                        //console.log(error);
+                    .then(function(result) {
+                        var loginUserData = {
+                            username: user.email,
+                            password: user.password,
+                            grant_type: 'password'
+                        };
+                        noty.showNoty(notificationService.notifySuccesMsg('Registration Success. Welcome'));
+                        $scope.login(loginUserData);
+                    }, function(error) {
                         noty.showNoty(notificationService.notifyErrorMsg('Registration Failed. Please try again'))
                     });
             };
