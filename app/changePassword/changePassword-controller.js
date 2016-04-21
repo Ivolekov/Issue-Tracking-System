@@ -23,7 +23,6 @@ angular.module('issueTrackingSystem.changePassword.changePassword', ['issueTrack
                     .then(function () {
                         noty.showNoty(notificationService.notifySuccesMsg('Password changed successfully!'));
                         $location.path('app/home/home.html');
-                        $route.reload();
                     }, function () {
                         noty.showNoty(notificationService.notifyErrorMsg("Password change error"));
                     });
