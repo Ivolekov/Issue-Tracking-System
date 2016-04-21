@@ -1,4 +1,4 @@
-<div class="dashboardRow">
+<div class="dashboardRow" ng-controller="DashboardCtrl">
     <div class="col-md-12">
         <h2>Dashboard</h2>
     </div>
@@ -19,20 +19,23 @@
                 <th>Due Date</th>
             </tr>
             </thead>
-            <tbody ng-repeat="issue in myIssues.Issues">
-            <tr>
-                <td><a></a></td>
-                <td>{{issue.Description}}</td>
-                <td><a></a></td>
-                <td>{{issue.DueDate | date}}</td>
+            <tbody>
+            <tr dir-paginate="issue in issues | orderBy: DueDate | itemsPerPage: paginationParams.pageSize"
+                total-items="totalUserIssuesCount" current-page="paginationParams.pageNumber">
+                <td class="col-md-3">
+                    <a href="#/issue/{{issue.Id}}">{{issue.Title}}</a>
+                </td>
+                <td class="col-md-5">{{issue.Description}}</td>
+                <td class="col-md-2">
+                    <a href="#/project/{{issue.Project.Id}}">{{issue.Project.Name}}</a>
+                </td>
+                <td class="col-md-2">{{issue.DueDate | date:'dd-MM-yyyy'}}</td>
             </tr>
             </tbody>
         </table>
         <div>
-            <uib-pagination boundary-links="true" total-items="totalItems" ng-model="issuesParams.pageNumber"
-                            class="pagination-sm" items-per-page="issuesParams.pageSize" ng-change="reloadIssues()"
-                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
-            </uib-pagination>
+            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" boundary-links="true">
+            </dir-pagination-controls>
         </div>
     </div>
 </div>

@@ -32,7 +32,6 @@ angular.module('issueTrackingSystem.users.authentication', [])
                 }).then(function (response) {
                     //sessionStorage['access_token'] = 'Bearer' + response.data.access_token;
                     deferred.resolve(response);
-                    projectService.getAllProjects();
                     //console.log(response.data)
                 }, function (error) {
                     deferred.reject(error);

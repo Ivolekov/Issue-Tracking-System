@@ -9,13 +9,9 @@ angular.module('issueTrackingSystem.dashboard.dashboard', [])
     }])
     .controller('DashboardCtrl', [
         '$scope',
-        function ($scope) {
-            //Paging
-            const pageSize = 5;
+        'projectService',
+        'issueService',
+        function ($scope, projectService, issueService) {
 
-            $scope.issuesParams = {
-                pageNumber: 1,
-                pageSize: pageSize
-            };
 
         }]);

@@ -1,3 +1,13 @@
-/**
- * Created by Maria on 21-Apr-16.
- */
+'use strict';
+
+angular.module('issueTrackingSystem.issue.issue-service', [])
+    .factory('issueService', [
+        '$http',
+        '$q',
+        'BASE_URL',
+        function ($http, $q, BASE_URL) {
+
+            return {
+
+            }
+        }]);
