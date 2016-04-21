@@ -21,7 +21,7 @@ angular.module('issueTrackingSystem.home.home', [
         'noty',
         function ($scope, $route,  $rootScope, $cookies, identity, authentication, notificationService, noty) {
             $rootScope.isAuthenticated = identity.isAuthenticated();
-
+            $rootScope.userName = $cookies.get('userName');
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (response) {
