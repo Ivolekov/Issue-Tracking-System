@@ -4,7 +4,10 @@ angular.module('issueTrackingSystem.project.project', ['issueTrackingSystem.proj
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/project', {
             templateUrl: 'app/project/project.html',
-            controller: 'ProjectCtrl'
+            controller: 'ProjectCtrl',
+            access: {
+                isAuthenticated: true
+            }
         })
     }])
     .controller('ProjectCtrl', [

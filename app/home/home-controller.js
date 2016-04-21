@@ -19,7 +19,8 @@ angular.module('issueTrackingSystem.home.home', [
         'authentication',
         'notificationService',
         'noty',
-        function ($scope, $route,  $rootScope, $cookies, identity, authentication, notificationService, noty) {
+        'projectService',
+        function ($scope, $route,  $rootScope, $cookies, identity, authentication, notificationService, noty, projectService) {
             $rootScope.isAuthenticated = identity.isAuthenticated();
             $rootScope.userName = $cookies.get('userName');
             $scope.login = function (user) {
@@ -29,6 +30,7 @@ angular.module('issueTrackingSystem.home.home', [
                         identity.getCurrentUser()
                             .then(function (userInfo) {
                                 $cookies.put('isAdmin', userInfo.data.isAdmin);
+                                projectService.getAllProjects();
                                 noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
                                 $route.reload()
                             })
