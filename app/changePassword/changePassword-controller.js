@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('issueTrackingSystem.changePassword.changePassword', [])
+angular.module('issueTrackingSystem.changePassword.changePassword', ['issueTrackingSystem.changePassword.changePassword-service'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/password', {
             templateUrl: 'app/changePassword/changePassword.html',
             controller: 'ChangePasswordCtrl',
             access: {
-                requiresAuthentication: true
+                isAuthenticated: true
             }
         })
     }])
@@ -15,14 +15,17 @@ angular.module('issueTrackingSystem.changePassword.changePassword', [])
         'changePasswordService',
         'notificationService',
         '$route',
-        function ($scope, changePasswordService, notificationService, $route) {
+        'noty',
+        '$location',
+        function ($scope, changePasswordService, notificationService, $route, noty, $location) {
             $scope.changePassword = function (passwordInfo) {
                 changePasswordService.changePassword(passwordInfo)
-                    .then(function (result) {
-                        notificationService.notifySuccesMsg('Password changed successfully!');
+                    .then(function () {
+                        noty.showNoty(notificationService.notifySuccesMsg('Password changed successfully!'));
+                        $location.path('app/home/home.html');
                         $route.reload();
-                    }, function (error) {
-                        notificationService.notifyErrorMsg("Password change error");
+                    }, function () {
+                        noty.showNoty(notificationService.notifyErrorMsg("Password change error"));
                     });
             };
         }]);
