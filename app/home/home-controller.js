@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('issueTrackingSystem.home.home', [
+        'issueTrackingSystem.users.identity',
         'issueTrackingSystem.users.authentication'
     ])
     .config(['$routeProvider', function ($routeProvider) {
@@ -11,20 +12,21 @@ angular.module('issueTrackingSystem.home.home', [
     }])
     .controller('HomeCtrl', [
         '$scope',
-        'authentication',
-        'notificationService',
-        'noty',
         '$route',
         '$rootScope',
         '$cookies',
-        function ($scope, authentication, notificationService, noty, $route, $rootScope, $cookies) {
-            $rootScope.isAuthenticated = authentication.isAuthenticated();
+        'identity',
+        'authentication',
+        'notificationService',
+        'noty',
+        function ($scope, $route,  $rootScope, $cookies, identity, authentication, notificationService, noty) {
+            $rootScope.isAuthenticated = identity.isAuthenticated();
 
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (response) {
-                        authentication.setCredentials(response.data);
-                        authentication.getCurrentUser()
+                        identity.setCredentials(response.data);
+                        identity.getCurrentUser()
                             .then(function (userInfo) {
                                 $cookies.put('isAdmin', userInfo.data.isAdmin);
                                 noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
@@ -53,7 +55,7 @@ angular.module('issueTrackingSystem.home.home', [
             };
 
             $scope.logout = function () {
-                authentication.clearCredentials();
+                identity.clearCredentials();
                 noty.showNoty(notificationService.notifyLogoutMsg('Successfully Logged Out'));
                 $route.reload()
 

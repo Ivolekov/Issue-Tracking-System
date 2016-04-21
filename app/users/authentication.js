@@ -6,8 +6,7 @@ angular.module('issueTrackingSystem.users.authentication', [])
         '$q',
         'BASE_URL',
         '$cookies',
-        '$rootScope',
-        function ($http, $q, BASE_URL, $cookies, $rootScope) {
+        function ($http, $q, BASE_URL, $cookies) {
 
             function registerUser(user) {
                 var deferred = $q.defer();
@@ -37,49 +36,8 @@ angular.module('issueTrackingSystem.users.authentication', [])
                 return deferred.promise
             }
 
-            function getCurrentUser() {
-                var deffered = $q.defer();
-
-                $http.get(BASE_URL + 'Users/me')
-                    .then(function (result) {
-                        deffered.resolve(result);
-                    }, function (error) {
-                        deffered.reject(error);
-                    });
-
-                return deffered.promise;
-            }
-            function isAuthenticated() {
-                return !!$cookies.get('access_token');
-            }
-
-            function setCredentials(user) {
-                $cookies.put('access_token', user.access_token);
-                $cookies.put('userName', user.userName);
-
-                $http.defaults.headers.common['Authorization'] = 'Bearer ' + user.access_token;
-            }
-
-            function clearCredentials() {
-                $rootScope.isAuthenticated = false;
-                $rootScope.userData = undefined;
-                $cookies.put('access_token', undefined);
-                $cookies.put('userName', undefined);
-
-                $http.defaults.headers.common['Authorization'] = 'Bearer ';
-            }
-            function isAdmin(user) {
-                var isAdmin = $cookies.put('isAdmin', user.true);
-                return isAdmin;
-            }
-
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
-                isAuthenticated: isAuthenticated,
-                setCredentials: setCredentials,
-                getCurrentUser: getCurrentUser,
-                clearCredentials: clearCredentials,
-                isAdmin: isAdmin
             }
         }]);
