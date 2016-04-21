@@ -23,23 +23,15 @@ angular.module('issueTrackingSystem.home.home', [
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (response) {
-                        //sessionStorage.setItem('currentUser', JSON.stringify(response.data));
-                        //console.log('JSON-->>>>' + JSON.stringify(response));
                         authentication.setCredentials(response.data);
-                        //authentication.getCurrentUser(function (succes) {
-                        //    $rootScope.isAuthenticated = true;
-                        //    $rootScope.userData = succes.data;
-                        //});
                         authentication.getCurrentUser()
                             .then(function (userInfo) {
-                                //sessionStorage['isAdmin'] = userInfo.data.isAdmin;
                                 $cookies.put('isAdmin', userInfo.data.isAdmin);
                                 noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
                                 $route.reload()
                             })
 
-                    }, function (error) {
-                        //console.log(error);
+                    }, function () {
                         noty.showNoty(notificationService.notifyErrorMsg('The Username or Password is Incorrect. Please Try Again'))
                     });
 
@@ -55,17 +47,14 @@ angular.module('issueTrackingSystem.home.home', [
                         };
                         noty.showNoty(notificationService.notifySuccesMsg('Registration Success. Welcome'));
                         $scope.login(loginUserData);
-                    }, function(error) {
+                    }, function() {
                         noty.showNoty(notificationService.notifyErrorMsg('Registration Failed. Please try again'))
                     });
             };
 
             $scope.logout = function () {
-                //authentication.logoutUser();
-                //sessionStorage.clear();
-                //console.log('Logout successful');
                 authentication.clearCredentials();
-                noty.showNoty(notificationService.notifyLogoutMsg('Successfully Logged Out'))
+                noty.showNoty(notificationService.notifyLogoutMsg('Successfully Logged Out'));
                 $route.reload()
 
             };
