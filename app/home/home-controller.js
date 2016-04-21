@@ -45,33 +45,6 @@ angular.module('issueTrackingSystem.home.home', [
 
             };
 
-            //$scope.register = function (user) {
-            //    authentication.registerUser(user)
-            //        .then(function (registeredUser) {
-            //            //console.log(registeredUser);
-            //            authentication.loginUser(user)
-            //                .then(function (response) {
-            //
-            //                    authentication.setCredentials(response.data);
-            //                    authentication.getCurrentUser(function (succes) {
-            //                        $rootScope.isAuthenticated = true;
-            //                        $rootScope.userData = succes.data;
-            //                    });
-            //                    noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
-            //                    $route.reload()
-            //                }, function (error) {
-            //                    console.log(error);
-            //                    noty.showNoty(notificationService.notifyErrorMsg('The Username or Password is Incorrect. Please Try Again'))
-            //                });
-            //
-            //            noty.showNoty(notificationService.notifySuccesMsg('Registration Success. Welcome'))
-            //        }, function (error) {
-            //            //console.log(error);
-            //            noty.showNoty(notificationService.notifyErrorMsg('Registration Failed. Please try again'))
-            //        });
-            //};
-
-
             $scope.register = function (user) {
                 authentication.registerUser(user)
                     .then(function(result) {
@@ -87,12 +60,10 @@ angular.module('issueTrackingSystem.home.home', [
                     });
             };
 
-
-
-            $scope.logout = function (user) {
-                authentication.logoutUser();
-                sessionStorage.clear()
-                console.log('Logout successful');
+            $scope.logout = function () {
+                //authentication.logoutUser();
+                //sessionStorage.clear();
+                //console.log('Logout successful');
                 authentication.clearCredentials();
                 noty.showNoty(notificationService.notifyLogoutMsg('Successfully Logged Out'))
                 $route.reload()

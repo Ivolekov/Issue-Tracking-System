@@ -7,7 +7,8 @@ angular.module('issueTrackingSystem.users.authentication', [])
         'BASE_URL',
         '$cookies',
         '$rootScope',
-        function ($http, $q, BASE_URL, $cookies, $rootScope) {
+        'projectService',
+        function ($http, $q, BASE_URL, $cookies, $rootScope,projectService) {
 
             function registerUser(user) {
                 var deferred = $q.defer();
@@ -29,8 +30,9 @@ angular.module('issueTrackingSystem.users.authentication', [])
                 $http.post(BASE_URL + 'api/token', loginUserData, {
                     headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 }).then(function (response) {
-                    sessionStorage['access_token'] = 'Bearer' + response.data.access_token;
+                    //sessionStorage['access_token'] = 'Bearer' + response.data.access_token;
                     deferred.resolve(response);
+                    projectService.getAllProjects();
                     //console.log(response.data)
                 }, function (error) {
                     deferred.reject(error);
@@ -40,18 +42,18 @@ angular.module('issueTrackingSystem.users.authentication', [])
                 return deferred.promise
             }
 
-            function logoutUser() {
-                var deferred = $q.defer();
-
-                $http.post(BASE_URL + "Account/Logout",null,null)
-                    .then(function (response) {
-                        deferred.resolve(response);
-                        console.log(response)
-                    }, function (error) {
-                        deferred.reject(error);
-                        console.log("ERROR--->>>>" + error.data)
-                    })
-            }
+            //function logoutUser() {
+            //    var deferred = $q.defer();
+            //
+            //    $http.post(BASE_URL + "Account/Logout",null,null)
+            //        .then(function (response) {
+            //            deferred.resolve(response);
+            //            console.log(response)
+            //        }, function (error) {
+            //            deferred.reject(error);
+            //            console.log("ERROR--->>>>" + error.data)
+            //        })
+            //}
 
             //function getCurrentUser() {
             //    var user = sessionStorage['currentUser'];
@@ -87,6 +89,7 @@ angular.module('issueTrackingSystem.users.authentication', [])
                 $rootScope.userData = undefined;
                 $cookies.put('access_token', undefined);
                 $cookies.put('userName', undefined);
+                sessionStorage.clear();
 
                 $http.defaults.headers.common['Authorization'] = 'Bearer ';
             }
@@ -113,7 +116,7 @@ angular.module('issueTrackingSystem.users.authentication', [])
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
-                logoutUser: logoutUser,
+                //logoutUser: logoutUser,
                 isAuthenticated: isAuthenticated,
                 setCredentials: setCredentials,
                 getCurrentUser: getCurrentUser,
