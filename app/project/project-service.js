@@ -5,36 +5,26 @@ angular.module('issueTrackingSystem.project.project-service', [])
         '$http',
         '$q',
         'BASE_URL',
-        'issueService',
-        function ($http, $q, BASE_URL) {
-            function getAllProjects() {
-                var deffered = $q.defer();
+        '$cookies',
+        function ($http, $q, BASE_URL, $cookies) {
 
-                $http.get(BASE_URL + 'Projects')
-                    .then(function (result) {
-                        deffered.resolve(result);
-                    }, function (error) {
-                        deffered.reject(error);
+            function getAllProjects(){
+                var deferred = $q.defer();
+                var token = $cookies.get('access_token');
+                var config = 'Projects?filter=&pageSize=' + 15 + '&pageNumber=' + 1;
+
+                $http.defaults.headers.common.Authorization = 'Bearer ' + token;
+
+                $http.get(BASE_URL + config)
+                    .then(function(response){
+                        deferred.resolve(response.data);
+                    }, function(err){
+                        deferred.reject(err);
                     });
 
-                return deffered.promise;
+                return deferred.promise;
             }
-
-            function getProjectById(id) {
-                var deffered = $q.defer();
-
-                $http.get(BASE_URL + 'Projects/' + id)
-                    .then(function (result) {
-                        deffered.resolve(result);
-                    }, function (error) {
-                        deffered.reject(error);
-                    });
-
-                return deffered.promise;
-            }
-
             return {
-                getAllProjects: getAllProjects,
-                getProjectById: getProjectById
-            }
+                getAllProjects: getAllProjects
+            };
         }]);

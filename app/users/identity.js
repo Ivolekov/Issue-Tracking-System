@@ -41,9 +41,8 @@ angular.module('issueTrackingSystem.users.identity', [])
                 $cookies.put('access_token', undefined);
                 $cookies.put('userName', undefined);
                 $cookies.put('isAdmin', undefined);
-
-                //$http.defaults.headers.common['Authorization'] = 'Bearer ';
             }
+
             function isAdmin(user) {
                 var isAdmin = $cookies.put('isAdmin', user.true);
                 return isAdmin;

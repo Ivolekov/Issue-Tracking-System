@@ -12,11 +12,11 @@ angular.module('issueTrackingSystem.issue.issue', ['issueTrackingSystem.issue.is
     }])
     .controller('IssueCtrl', [
         '$scope',
+        '$rootScope',
+        '$route',
         'projectService',
         'issueService',
-        '$route',
-        'authentication',
-        function ($scope, projectService, issueService, $route, authentication) {
-
+        'identity',
+        function ($scope,$rootScope, projectService, issueService, $route, identity) {
 
         }]);

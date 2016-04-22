@@ -13,9 +13,6 @@ angular.module('issueTrackingSystem.project.project', ['issueTrackingSystem.proj
     .controller('ProjectCtrl', [
         '$scope',
         'projectService',
-        'issueService',
-        '$route',
-        'authentication',
-        function ($scope, projectService, issueService, $route, authentication) {
+        function ($scope, projectService) {
 
         }]);

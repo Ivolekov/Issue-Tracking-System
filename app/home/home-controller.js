@@ -20,7 +20,7 @@ angular.module('issueTrackingSystem.home.home', [
         'notificationService',
         'noty',
         'projectService',
-        function ($scope, $route,  $rootScope, $cookies, identity, authentication, notificationService, noty, projectService) {
+        function ($scope, $route, $rootScope, $cookies, identity, authentication, notificationService, noty, projectService) {
             $rootScope.isAuthenticated = identity.isAuthenticated();
             $rootScope.userName = $cookies.get('userName');
             $scope.login = function (user) {
@@ -30,7 +30,8 @@ angular.module('issueTrackingSystem.home.home', [
                         identity.getCurrentUser()
                             .then(function (userInfo) {
                                 $cookies.put('isAdmin', userInfo.data.isAdmin);
-                                projectService.getAllProjects();
+                                $scope.getUserIssues();
+                                $scope.getAllProjects();
                                 noty.showNoty(notificationService.notifySuccesMsg('Successfully Logged In'));
                                 $route.reload()
                             })
@@ -43,7 +44,7 @@ angular.module('issueTrackingSystem.home.home', [
 
             $scope.register = function (user) {
                 authentication.registerUser(user)
-                    .then(function(result) {
+                    .then(function (result) {
                         var loginUserData = {
                             username: user.email,
                             password: user.password,
@@ -51,7 +52,7 @@ angular.module('issueTrackingSystem.home.home', [
                         };
                         noty.showNoty(notificationService.notifySuccesMsg('Registration Success. Welcome'));
                         $scope.login(loginUserData);
-                    }, function() {
+                    }, function () {
                         noty.showNoty(notificationService.notifyErrorMsg('Registration Failed. Please try again'))
                     });
             };

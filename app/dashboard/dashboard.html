@@ -4,8 +4,9 @@
     </div>
     <div class="col-md-4">
         <h3>Assigned Projects</h3>
-        <div>
-            <a>{{issue.Project.Name}}</a>
+
+        <div ng-repeat="project in allProjects">
+            <a href="#/project/{{project.Id}}">{{project.Name}}</a>
         </div>
     </div>
     <div class="col-md-8">
@@ -20,23 +21,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr dir-paginate="issue in issues | orderBy: DueDate | itemsPerPage: paginationParams.pageSize"
-                total-items="totalUserIssuesCount" current-page="paginationParams.pageNumber">
+            <tr ng-repeat="issue in userIssues">
                 <td class="col-md-3">
                     <a href="#/issue/{{issue.Id}}">{{issue.Title}}</a>
                 </td>
                 <td class="col-md-5">{{issue.Description}}</td>
                 <td class="col-md-2">
-                    <a href="#/project/{{issue.Project.Id}}">{{issue.Project.Name}}</a>
+                    <a href="#/project/">{{issue.Project.Name}}</a>
                 </td>
-                <td class="col-md-2">{{issue.DueDate | date:'dd-MM-yyyy'}}</td>
+                <td class="col-md-2">{{issue.DueDate}}</td>
             </tr>
             </tbody>
         </table>
-        <div>
-            <dir-pagination-controls on-page-change="pageChanged(newPageNumber)" boundary-links="true">
-            </dir-pagination-controls>
-        </div>
     </div>
 </div>
 

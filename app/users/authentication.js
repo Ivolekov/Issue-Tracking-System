@@ -5,8 +5,7 @@ angular.module('issueTrackingSystem.users.authentication', [])
         '$http',
         '$q',
         'BASE_URL',
-        '$cookies',
-        function ($http, $q, BASE_URL, $cookies) {
+        function ($http, $q, BASE_URL) {
 
             function registerUser(user) {
                 var deferred = $q.defer();
