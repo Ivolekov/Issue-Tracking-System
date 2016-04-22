@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.dashboard.dashboard', [])
+angular.module('issueTrackingSystem.dashboard.dashboard', ['issueTrackingSystem.project.project-service'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
             templateUrl: 'app/home/home.html',
@@ -15,7 +15,12 @@ angular.module('issueTrackingSystem.dashboard.dashboard', [])
         '$rootScope',
         'projectService',
         'issueService',
-        function ($scope, $rootScope, projectService, issueService) {
+        'noty',
+        'notificationService',
+        function ($scope, $rootScope, projectService, issueService, noty, notificationService) {
+
+            $scope.currentPage = 1;
+            $scope.currentProjectsPage = 1;
 
             $scope.issuesParams = {
                 pageSize: 10,
@@ -23,16 +28,17 @@ angular.module('issueTrackingSystem.dashboard.dashboard', [])
             };
 
             $scope.projectsParams = {
-                pageSize: 7,
+                pageSize: 15,
                 pageNumber: 1
             };
 
             $scope.getUserIssues = function(){
                 issueService.getUserIssues($scope.issuesParams)
-                    .then(function success(data){
+                    .then(function (data){
                         $rootScope.userIssues = data.Issues;
-                    }, function error(err){
-                        console.log(err)
+                        $scope.issuesCount = data.TotalPages * $scope.issuesParams.pageSize;
+                    }, function (){
+                        noty.showNoty(notificationService.notifyErrorMsg('Error: Can\'t load issues' ))
                     })
             };
 
@@ -40,8 +46,17 @@ angular.module('issueTrackingSystem.dashboard.dashboard', [])
                 projectService.getAllProjects($scope.projectsParams)
                     .then(function (response) {
                         $rootScope.allProjects = response.Projects;
-                    }, function (error) {
-                        console.log(error)
+                        $scope.projectsCount  = response.TotalPages * $scope.projectsParams.pageSize;
+                    }, function () {
+                        noty.showNoty(notificationService.notifyErrorMsg('Error: Can\'t load projects'))
                     })
+            };
+
+            $scope.pageChanged = function (page) {
+                $scope.getUserIssues(page);
+            };
+
+            $scope.projectsPageChanged = function (page) {
+                $scope.getAllProjects(page);
             };
         }]);

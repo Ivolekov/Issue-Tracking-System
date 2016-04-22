@@ -6,6 +6,8 @@ angular.module('issueTrackingSystem', [
         'angular-noty',
         'angular-loading-bar',
         'ngAnimate',
+        'ui.bootstrap.pagination',
+        'bw.paging',
         'issueTrackingSystem.home.home',
         'issueTrackingSystem.dashboard.dashboard',
         'issueTrackingSystem.components.noty-service',

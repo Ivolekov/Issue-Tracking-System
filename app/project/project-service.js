@@ -8,10 +8,10 @@ angular.module('issueTrackingSystem.project.project-service', [])
         '$cookies',
         function ($http, $q, BASE_URL, $cookies) {
 
-            function getAllProjects(){
+            function getAllProjects(params){
                 var deferred = $q.defer();
                 var token = $cookies.get('access_token');
-                var config = 'Projects?filter=&pageSize=' + 15 + '&pageNumber=' + 1;
+                var config = 'Projects?filter=&pageSize=' + params.pageSize + '&pageNumber=' + params.pageNumber;
 
                 $http.defaults.headers.common.Authorization = 'Bearer ' + token;
 

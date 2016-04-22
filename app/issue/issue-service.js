@@ -8,19 +8,17 @@ angular.module('issueTrackingSystem.issue.issue-service', [])
         '$cookies',
         function ($http, $q, BASE_URL, $cookies) {
 
-            function getUserIssues(pageParams){
+            function getUserIssues(params){
                 var deferred = $q.defer();
 
                 var token = $cookies.get('access_token');
 
-                var url = BASE_URL + 'issues/me?orderBy=DueDate desc&pageSize=' +
-                    pageParams.pageSize +
-                    '&pageNumber=' +
-                    pageParams.pageNumber;
+                var config ='issues/me?orderBy=DueDate desc&pageSize=' +
+                    params.pageSize + '&pageNumber=' + params.pageNumber;
 
                 $http.defaults.headers.common.Authorization = 'Bearer ' + token;
 
-                $http.get(url)
+                $http.get(BASE_URL + config)
                     .then(function(response){
                         deferred.resolve(response.data);
                     }, function(err){

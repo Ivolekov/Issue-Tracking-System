@@ -8,6 +8,12 @@
         <div ng-repeat="project in allProjects">
             <a href="#/project/{{project.Id}}">{{project.Name}}</a>
         </div>
+        <div paging
+             page="currentProjectsPage"
+             page-size="10"
+             total="50"
+             paging-action="projectsPageChanged()">
+        </div>
     </div>
     <div class="col-md-8">
         <h3>Assigned Issues</h3>
@@ -27,12 +33,20 @@
                 </td>
                 <td class="col-md-5">{{issue.Description}}</td>
                 <td class="col-md-2">
-                    <a href="#/project/">{{issue.Project.Name}}</a>
+                    <a href="#/project/{{issue.Project.Id}}">{{issue.Project.Name}}</a>
                 </td>
                 <td class="col-md-2">{{issue.DueDate}}</td>
             </tr>
             </tbody>
         </table>
+        <div class="text-center">
+            <div paging
+                 page="currentPage"
+                 page-size="10"
+                 total="100"
+                 paging-action="getUserIssues()">
+            </div>
+        </div>
     </div>
 </div>
 
